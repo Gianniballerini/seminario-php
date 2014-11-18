@@ -19,10 +19,10 @@
  	echo '<form name="filtro2" action="propiedades.php?filtro=1" method="post">';
  	$tilde = '';
  	while($row = mysqli_fetch_array($caracNombre)) {
- 		if (isset($_POST[$row["caracteristica"]])) {
+ 		if (isset($_POST[$row["idcaracteristica"]])) {
  			$tilde = 'checked';
  		}
- 		echo '<input type="checkbox" name="'.$row["caracteristica"].'" value="'.$row["caracteristica"].'"'.$tilde.'> '.$row["caracteristica"].' <br>';
+ 		echo '<input type="checkbox" name="'.$row["idcaracteristica"].'" value="'.$row["idcaracteristica"].'"'.$tilde.'> '.$row["caracteristica"].' <br>';
  		$tilde = '';
 	}
 	echo'<input type="submit" value="filtrar" name="filtro3">';

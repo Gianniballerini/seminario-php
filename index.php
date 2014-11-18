@@ -1,5 +1,5 @@
 <?php
-echo "aloha";
-header("Location: ./propiedades.php");
+//echo "aloha";
+include ("./propiedades.php");
 
 ?>

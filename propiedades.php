@@ -1,9 +1,10 @@
 <?php
 
+
 ?>
 
 <html>
-		<link rel="stylesheet" type="text/css" href=".././css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<header>
 			<div class="nv">
 				<div class="menu">
@@ -27,6 +28,12 @@
 							</li>
 						</ul>
 					</nav>
+					<form id="formularioIdentificarse" action="./identificarse.php" method="post">
+	          <input name="usuario" id="usuario" placeholder="usuario" type="text">
+	          <input name="clave" id="clave" placeholder="Clave" type="password">
+	          <input type="submit" value="Submit">
+	</form>
+
 				</div>
 			</div>
 

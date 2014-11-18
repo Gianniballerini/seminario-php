@@ -21,38 +21,25 @@
         }
 
 
-	$tipo = mysqli_query($con,"SELECT * FROM tipospropiedades");
-/*	
-	if (($cochera == 1) AND ($pileta == 1) AND ($parrilla == 1)) {
-		$prop = mysqli_query($con,"SELECT * FROM propiedades as p WHERE EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 1) AND EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 2) AND EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 3) $sort ");
-	}else{
-		if (($cochera == 1) AND ($pileta == 1)) {
-			$prop = mysqli_query($con,"SELECT * FROM propiedades as p WHERE EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 1) AND EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 2)" . $sort);
-		}else{
-			if (($cochera == 1) AND ($parrilla == 1)) {
-				$prop = mysqli_query($con,"SELECT * FROM propiedades as p WHERE EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 1) AND EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 3)" . $sort);
-			}else{
-				if (($pileta == 1) AND ($parrilla == 1)) {
-					$prop = mysqli_query($con,"SELECT * FROM propiedades as p WHERE EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 2) AND EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 3)" . $sort);
-				}else{
-					if ($cochera == 1) {
-					$prop = mysqli_query($con,"SELECT * FROM propiedades as p WHERE EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 1)" . $sort);
-					}else{
-						if ($pileta == 1) {
-							$prop = mysqli_query($con,"SELECT * FROM propiedades as p WHERE EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 2)" . $sort);
-						}else{
-							if ($parrilla == 1) {
-								$prop = mysqli_query($con,"SELECT * FROM propiedades as p WHERE EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE idpropiedad = p.idpropiedad AND idcaracteristica = 3)" .$sort);
-							}else{
-									$prop = mysqli_query($con,"SELECT * FROM propiedades as p" .$sort);
-							}
-						}
-					}
-				}
-			}
-		}
-	}  esto lo saque porque no soportaba la carga dinamica de caracteristicas y filtros en base a esas caracteristicas
-		lo dejo como comentario para fururas referencias o algo que necesitemos de consultas sql. */
-	$prop = mysqli_query($con,"SELECT * FROM propiedades as p" .$sort);
+   
+    
+
+    $gianni = '';
+
+    $caracId = mysqli_query($con,"SELECT * FROM caracteristicaspropiedades");
+
+	while($row = mysqli_fetch_array($caracId)) {
+ 		if (isset($_POST[$row['idcaracteristica']])) {
+ 			if ($gianni == '') {
+ 				$gianni = 'WHERE EXISTS(SELECT * FROM caracteristicaspropiedades_propiedades WHERE p.idpropiedad = idpropiedad AND idcaracteristica = '.$row["idcaracteristica"].')';
+ 			}else{
+ 				$gianni .= 'AND EXISTS (SELECT * FROM caracteristicaspropiedades_propiedades WHERE p.idpropiedad = idpropiedad AND idcaracteristica = '.$row["idcaracteristica"].')';
+ 			}
+ 			
+ 		}
+ 	} 
+
+
+	$prop = mysqli_query($con,'SELECT * FROM propiedades as p '.$gianni.' '.$sort.'');
 
 ?>

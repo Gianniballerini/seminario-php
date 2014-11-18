@@ -3,13 +3,6 @@
 
 	include("conectar.php");
 
-	var_dump($_POST['filtro3']);
-
-	if (isset($_POST['filtro3'])) {
-
-		include("arregloconid.php");
-	}
-
 	include("busqueda.php");
  
 	include("tabla-p1.php"); //primer parte de la tabla (se repite mucho por eso esta en un archivo aparte para usarlo)
